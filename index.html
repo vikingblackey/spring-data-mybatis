@@ -1,57 +1,2263 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Spring-data-mybatis by hatunet</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Spring-data-mybatis</h1>
-      <h2 class="project-tagline">Simplifies the development of creating a MyBatis-based data access layer.</h2>
-      <a href="https://github.com/hatunet/spring-data-mybatis" class="btn">View on GitHub</a>
-      <a href="https://github.com/hatunet/spring-data-mybatis/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/hatunet/spring-data-mybatis/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<meta name="author" content="Jarvis Song">
+<title>Spring Data MyBatis - Reference Documentation</title>
+<link rel="stylesheet" href="./spring.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body class="book">
+<div id="header">
+<h1>Spring Data MyBatis - Reference Documentation</h1>
+<div class="details">
+<span id="author" class="author">Jarvis Song</span><br>
+<span id="revnumber">version 1.0.1.BUILD-SNAPSHOT,</span>
+<span id="revdate">2016-11-17</span>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>&#169; 2008-2016 The original authors.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Copies of this document may be made for your own use and for distribution to others, provided that you do not charge any fee for such copies and further provided that each copy contains this Copyright Notice, whether distributed in print or electronically.
+</td>
+</tr>
+</table>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel0">
+<li><a href="#preface">Preface</a>
+<ul class="sectlevel1">
+<li><a href="#project">1. Project metadata</a></li>
+<li><a href="#new-features">2. New &amp; Noteworthy</a>
+<ul class="sectlevel2">
+<li><a href="#new-features.1-0-0">2.1. What&#8217;s new in Spring Data Mybatis 1.0.0</a></li>
+</ul>
+</li>
+<li><a href="#dependencies">3. Dependencies</a>
+<ul class="sectlevel2">
+<li><a href="#dependencies.spring-boot">3.1. Dependency management with Spring Boot</a></li>
+<li><a href="#dependencies.spring-framework">3.2. Spring Framework</a></li>
+</ul>
+</li>
+<li><a href="#repositories">4. Working with Spring Data Repositories</a>
+<ul class="sectlevel2">
+<li><a href="#repositories.core-concepts">4.1. Core concepts</a></li>
+<li><a href="#repositories.query-methods">4.2. Query methods</a></li>
+<li><a href="#repositories.definition">4.3. Defining repository interfaces</a>
+<ul class="sectlevel3">
+<li><a href="#repositories.definition-tuning">4.3.1. Fine-tuning repository definition</a></li>
+<li><a href="#repositories.multiple-modules">4.3.2. Using Repositories with multiple Spring Data modules</a></li>
+</ul>
+</li>
+<li><a href="#repositories.query-methods.details">4.4. Defining query methods</a>
+<ul class="sectlevel3">
+<li><a href="#repositories.query-methods.query-lookup-strategies">4.4.1. Query lookup strategies</a></li>
+<li><a href="#repositories.query-methods.query-creation">4.4.2. Query creation</a></li>
+<li><a href="#repositories.query-methods.query-property-expressions">4.4.3. Property expressions</a></li>
+<li><a href="#repositories.special-parameters">4.4.4. Special parameter handling</a></li>
+<li><a href="#repositories.limit-query-result">4.4.5. Limiting query results</a></li>
+<li><a href="#repositories.query-streaming">4.4.6. Streaming query results</a></li>
+<li><a href="#repositories.query-async">4.4.7. Async query results</a></li>
+</ul>
+</li>
+<li><a href="#repositories.create-instances">4.5. Creating repository instances</a>
+<ul class="sectlevel3">
+<li><a href="#repositories.create-instances.spring">4.5.1. XML configuration</a></li>
+<li><a href="#repositories.create-instances.java-config">4.5.2. JavaConfig</a></li>
+<li><a href="#repositories.create-instances.standalone">4.5.3. Standalone usage</a></li>
+</ul>
+</li>
+<li><a href="#repositories.custom-implementations">4.6. Custom implementations for Spring Data repositories</a>
+<ul class="sectlevel3">
+<li><a href="#repositories.single-repository-behaviour">4.6.1. Adding custom behavior to single repositories</a></li>
+<li><a href="#repositories.custom-behaviour-for-all-repositories">4.6.2. Adding custom behavior to all repositories</a></li>
+</ul>
+</li>
+<li><a href="#core.extensions">4.7. Spring Data extensions</a>
+<ul class="sectlevel3">
+<li><a href="#core.extensions.querydsl">4.7.1. Querydsl Extension</a></li>
+<li><a href="#core.web">4.7.2. Web support</a></li>
+<li><a href="#core.repository-populators">4.7.3. Repository populators</a></li>
+<li><a href="#web.legacy">4.7.4. Legacy web support</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#reference">Reference Documentation</a></li>
+<li><a href="#appendix">Appendix</a>
+<ul class="sectlevel1">
+<li><a href="#repositories.namespace-reference">Appendix A: Namespace reference</a>
+<ul class="sectlevel2">
+<li><a href="#populator.namespace-dao-config">The &lt;repositories /&gt; element</a></li>
+</ul>
+</li>
+<li><a href="#populator.namespace-reference">Appendix B: Populators namespace reference</a>
+<ul class="sectlevel2">
+<li><a href="#namespace-dao-config">The &lt;populator /&gt; element</a></li>
+</ul>
+</li>
+<li><a href="#repository-query-keywords">Appendix C: Repository query keywords</a>
+<ul class="sectlevel2">
+<li><a href="#_supported_query_keywords">Supported query keywords</a></li>
+</ul>
+</li>
+<li><a href="#repository-query-return-types">Appendix D: Repository query return types</a>
+<ul class="sectlevel2">
+<li><a href="#_supported_query_return_types">Supported query return types</a></li>
+</ul>
+</li>
+<li><a href="#faq">Appendix E: Frequently asked questions</a></li>
+<li><a href="#glossary">Appendix F: Glossary</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<h1 id="preface" class="sect0"><a class="anchor" href="#preface"></a>Preface</h1>
+<div class="sect1">
+<h2 id="project"><a class="anchor" href="#project"></a>1. Project metadata</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Version control - <a href="https://github.com/hatunet/spring-data-mybatis" class="bare">https://github.com/hatunet/spring-data-mybatis</a></p>
+</li>
+<li>
+<p>Issue - <a href="https://github.com/hatunet/spring-data-mybatis/issues" class="bare">https://github.com/hatunet/spring-data-mybatis/issues</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="new-features"><a class="anchor" href="#new-features"></a>2. New &amp; Noteworthy</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="new-features.1-0-0"><a class="anchor" href="#new-features.1-0-0"></a>2.1. What&#8217;s new in Spring Data Mybatis 1.0.0</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Implementation of CRUD methods for normal Entities</p>
+</li>
+<li>
+<p>Dynamic query generation from query method names</p>
+</li>
+<li>
+<p>Implementation domain base classes providing basic properties</p>
+</li>
+<li>
+<p>Support for transparent auditing (created, last changed)</p>
+</li>
+<li>
+<p>Possibility to integrate custom repository code</p>
+</li>
+<li>
+<p>Easy Spring integration with custom namespace</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dependencies"><a class="anchor" href="#dependencies"></a>3. Dependencies</h2>
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="title">Example 1. Declaring a dependency to a Spring Data module</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.data&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-data-jpa&lt;/artifactId&gt;
+    &lt;version&gt;{version}&lt;/version&gt;
+  &lt;/dependency&gt;
+&lt;dependencies&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dependencies.spring-boot"><a class="anchor" href="#dependencies.spring-boot"></a>3.1. Dependency management with Spring Boot</h3>
+<div class="paragraph">
+<p>Spring Boot already selects a very recent version of Spring Data modules for you. In case you want to upgrade to a newer version nonetheless, simply configure the property <code>spring-data-releasetrain.version</code> to the <a href="#dependencies.train-names">train name and iteration</a> you&#8217;d like to use.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dependencies.spring-framework"><a class="anchor" href="#dependencies.spring-framework"></a>3.2. Spring Framework</h3>
+<div class="paragraph">
+<p>The current version of Spring Data modules require Spring Framework in version 4.2.8.RELEASE or better. The modules might also work with an older bugfix version of that minor version. However, using the most recent version within that generation is highly recommended.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="repositories"><a class="anchor" href="#repositories"></a>4. Working with Spring Data Repositories</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The goal of Spring Data repository abstraction is to significantly reduce the amount of boilerplate code required to implement data access layers for various persistence stores.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><em>Spring Data repository documentation and your module</em></p>
+</div>
+<div class="paragraph">
+<p>This chapter explains the core concepts and interfaces of Spring Data repositories. The information in this chapter is pulled from the Spring Data Commons module. It uses the configuration and code samples for the Java Persistence API (JPA) module. Adapt the XML namespace declaration and the types to be extended to the equivalents of the particular module that you are using. <a href="#repositories.namespace-reference">Namespace reference</a> covers XML configuration which is supported across all Spring Data modules supporting the repository API, <a href="#repository-query-keywords">Repository query keywords</a> covers the query method keywords supported by the repository abstraction in general. For detailed information on the specific features of your module, consult the chapter on that module of this document.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="repositories.core-concepts"><a class="anchor" href="#repositories.core-concepts"></a>4.1. Core concepts</h3>
+<div class="paragraph">
+<p>The central interface in Spring Data repository abstraction is <code>Repository</code> (probably not that much of a surprise). It takes the domain class to manage as well as the id type of the domain class as type arguments. This interface acts primarily as a marker interface to capture the types to work with and to help you to discover interfaces that extend this one. The <code>CrudRepository</code> provides sophisticated CRUD functionality for the entity class that is being managed.</p>
+</div>
+<div id="repositories.repository" class="exampleblock">
+<div class="title">Example 2. CrudRepository interface</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public interface CrudRepository&lt;T, ID extends Serializable&gt;
+    extends Repository&lt;T, ID&gt; {
 
-    <section class="main-content">
-      <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+    &lt;S extends T&gt; S save(S entity); <i class="conum" data-value="1"></i><b>(1)</b>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here <a href="https://guides.github.com/features/mastering-markdown/">using GitHub Flavored Markdown</a>, select a template crafted by a designer, and publish. After your page is generated, you can check out the new <code>gh-pages</code> branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
+    T findOne(ID primaryKey);       <i class="conum" data-value="2"></i><b>(2)</b>
 
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Designer Templates</h3>
+    Iterable&lt;T&gt; findAll();          <i class="conum" data-value="3"></i><b>(3)</b>
 
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
+    Long count();                   <i class="conum" data-value="4"></i><b>(4)</b>
 
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating pages manually</h3>
+    void delete(T entity);          <i class="conum" data-value="5"></i><b>(5)</b>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+    boolean exists(ID primaryKey);  <i class="conum" data-value="6"></i><b>(6)</b>
 
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+    // … more functionality omitted.
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Saves the given entity.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Returns the entity identified by the given id.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Returns all entities.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Returns the number of entities.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Deletes the given entity.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Indicates whether an entity with the given id exists.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We also provide persistence technology-specific abstractions like e.g. <code>JpaRepository</code> or <code>MongoRepository</code>. Those interfaces extend    <code>CrudRepository</code> and expose the capabilities of the underlying persistence technology in addition to the rather generic persistence technology-agnostic interfaces like e.g. CrudRepository.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>On top of the <code>CrudRepository</code> there is a <code>PagingAndSortingRepository</code> abstraction that adds additional methods to ease paginated access to entities:</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 3. PagingAndSortingRepository</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public interface PagingAndSortingRepository&lt;T, ID extends Serializable&gt;
+  extends CrudRepository&lt;T, ID&gt; {
 
-<p>You can @mention a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+  Iterable&lt;T&gt; findAll(Sort sort);
 
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
+  Page&lt;T&gt; findAll(Pageable pageable);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Accessing the second page of <code>User</code> by a page size of 20 you could simply do something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">PagingAndSortingRepository&lt;User, Long&gt; repository = // … get access to a bean
+Page&lt;User&gt; users = repository.findAll(new PageRequest(1, 20));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In addition to query methods, query derivation for both count and delete queries, is available.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 4. Derived Count Query</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public interface UserRepository extends CrudRepository&lt;User, Long&gt; {
 
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
+  Long countByLastname(String lastname);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="title">Example 5. Derived Delete Query</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public interface UserRepository extends CrudRepository&lt;User, Long&gt; {
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/hatunet/spring-data-mybatis">Spring-data-mybatis</a> is maintained by <a href="https://github.com/hatunet">hatunet</a>.</span>
+  Long deleteByLastname(String lastname);
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
+  List&lt;User&gt; removeByLastname(String lastname);
 
-    </section>
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="repositories.query-methods"><a class="anchor" href="#repositories.query-methods"></a>4.2. Query methods</h3>
+<div class="paragraph">
+<p>Standard CRUD functionality repositories usually have queries on the underlying datastore. With Spring Data, declaring those queries becomes a four-step process:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Declare an interface extending Repository or one of its subinterfaces and type it to the domain class and ID type that it will handle.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">interface PersonRepository extends Repository&lt;Person, Long&gt; { … }</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Declare query methods on the interface.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">interface PersonRepository extends Repository&lt;Person, Long&gt; {
+  List&lt;Person&gt; findByLastname(String lastname);
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set up Spring to create proxy instances for those interfaces. Either via <a href="#repositories.create-instances.java-config">JavaConfig</a>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-  
-  </body>
+@EnableJpaRepositories
+class Config {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or via <a href="#repositories.create-instances">XML configuration</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/data/jpa
+     http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"&gt;
+
+   &lt;jpa:repositories base-package="com.acme.repositories"/&gt;
+
+&lt;/beans&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The JPA namespace is used in this example. If you are using the repository abstraction for any other store, you need to change this to the appropriate namespace declaration of your store module which should be exchanging <code>jpa</code> in favor of, for example, <code>mongodb</code>.</p>
+</div>
+<div class="paragraph">
+<p>Also, note that the JavaConfig variant doesn&#8217;t configure a package explictly as the package of the annotated class is used by default. To customize the package to scan use one of the <code>basePackage…</code> attribute of the data-store specific repository <code>@Enable…</code>-annotation.</p>
+</div>
+</li>
+<li>
+<p>Get the repository instance injected and use it.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public class SomeClient {
+
+  @Autowired
+  private PersonRepository repository;
+
+  public void doSomething() {
+    List&lt;Person&gt; persons = repository.findByLastname("Matthews");
+  }
+}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The sections that follow explain each step in detail.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="repositories.definition"><a class="anchor" href="#repositories.definition"></a>4.3. Defining repository interfaces</h3>
+<div class="paragraph">
+<p>As a first step you define a domain class-specific repository interface. The interface must extend Repository and be typed to the domain class and an ID type. If you want to expose CRUD methods for that domain type, extend <code>CrudRepository</code> instead of <code>Repository</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="repositories.definition-tuning"><a class="anchor" href="#repositories.definition-tuning"></a>4.3.1. Fine-tuning repository definition</h4>
+<div class="paragraph">
+<p>Typically, your repository interface will extend <code>Repository</code>, <code>CrudRepository</code> or <code>PagingAndSortingRepository</code>. Alternatively, if you do not want to extend Spring Data interfaces, you can also annotate your repository interface with <code>@RepositoryDefinition</code>. Extending <code>CrudRepository</code> exposes a complete set of methods to manipulate your entities. If you prefer to be selective about the methods being exposed, simply copy the ones you want to expose from <code>CrudRepository</code> into your domain repository.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This allows you to define your own abstractions on top of the provided Spring Data Repositories functionality.
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock">
+<div class="title">Example 6. Selectively exposing CRUD methods</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@NoRepositoryBean
+interface MyBaseRepository&lt;T, ID extends Serializable&gt; extends Repository&lt;T, ID&gt; {
+
+  T findOne(ID id);
+
+  T save(T entity);
+}
+
+interface UserRepository extends MyBaseRepository&lt;User, Long&gt; {
+  User findByEmailAddress(EmailAddress emailAddress);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>In this first step you defined a common base interface for all your domain repositories and exposed <code>findOne(…)</code> as well as <code>save(…)</code>.These methods will be routed into the base repository implementation of the store of your choice provided by Spring Data ,e.g. in the case if JPA <code>SimpleJpaRepository</code>, because they are matching the method signatures in <code>CrudRepository</code>. So the <code>UserRepository</code> will now be able to save users, and find single ones by id, as well as triggering a query to find <code>Users</code> by their email address.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note, that the intermediate repository interface is annotated with <code>@NoRepositoryBean</code>. Make sure you add that annotation to all repository interfaces that Spring Data should not create instances for at runtime.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="repositories.multiple-modules"><a class="anchor" href="#repositories.multiple-modules"></a>4.3.2. Using Repositories with multiple Spring Data modules</h4>
+<div class="paragraph">
+<p>Using a unique Spring Data module in your application makes things simple hence, all repository interfaces in the defined scope are bound to the Spring Data module. Sometimes applications require using more than one Spring Data module. In such case, it&#8217;s required for a repository definition to distinguish between persistence technologies. Spring Data enters strict repository configuration mode because it detects multiple repository factories on the class path. Strict configuration requires details on the repository or the domain class to decide about Spring Data module binding for a repository definition:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If the repository definition <a href="#repositories.multiple-modules.types">extends the module-specific repository</a>, then it&#8217;s a valid candidate for the particular Spring Data module.</p>
+</li>
+<li>
+<p>If the domain class is <a href="#repositories.multiple-modules.annotations">annotated with the module-specific type annotation</a>, then it&#8217;s a valid candidate for the particular Spring Data module. Spring Data modules accept either 3rd party annotations (such as JPA&#8217;s <code>@Entity</code>) or provide own annotations such as <code>@Document</code> for Spring Data MongoDB/Spring Data Elasticsearch.</p>
+</li>
+</ol>
+</div>
+<div id="repositories.multiple-modules.types" class="exampleblock">
+<div class="title">Example 7. Repository definitions using Module-specific Interfaces</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">interface MyRepository extends JpaRepository&lt;User, Long&gt; { }
+
+@NoRepositoryBean
+interface MyBaseRepository&lt;T, ID extends Serializable&gt; extends JpaRepository&lt;T, ID&gt; {
+  …
+}
+
+interface UserRepository extends MyBaseRepository&lt;User, Long&gt; {
+  …
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>MyRepository</code> and <code>UserRepository</code> extend <code>JpaRepository</code> in their type hierarchy. They are valid candidates for the Spring Data JPA module.</p>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="title">Example 8. Repository definitions using generic Interfaces</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">interface AmbiguousRepository extends Repository&lt;User, Long&gt; {
+ …
+}
+
+@NoRepositoryBean
+interface MyBaseRepository&lt;T, ID extends Serializable&gt; extends CrudRepository&lt;T, ID&gt; {
+  …
+}
+
+interface AmbiguousUserRepository extends MyBaseRepository&lt;User, Long&gt; {
+  …
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>AmbiguousRepository</code> and <code>AmbiguousUserRepository</code> extend only <code>Repository</code> and <code>CrudRepository</code> in their type hierarchy. While this is perfectly fine using a unique Spring Data module, multiple modules cannot distinguish to which particular Spring Data these repositories should be bound.</p>
+</div>
+</div>
+</div>
+<div id="repositories.multiple-modules.annotations" class="exampleblock">
+<div class="title">Example 9. Repository definitions using Domain Classes with Annotations</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">interface PersonRepository extends Repository&lt;Person, Long&gt; {
+ …
+}
+
+@Entity
+public class Person {
+  …
+}
+
+interface UserRepository extends Repository&lt;User, Long&gt; {
+ …
+}
+
+@Document
+public class User {
+  …
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>PersonRepository</code> references <code>Person</code> which is annotated with the JPA annotation <code>@Entity</code> so this repository clearly belongs to Spring Data JPA. <code>UserRepository</code> uses <code>User</code> annotated with Spring Data MongoDB&#8217;s <code>@Document</code> annotation.</p>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="title">Example 10. Repository definitions using Domain Classes with mixed Annotations</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">interface JpaPersonRepository extends Repository&lt;Person, Long&gt; {
+ …
+}
+
+interface MongoDBPersonRepository extends Repository&lt;Person, Long&gt; {
+ …
+}
+
+@Entity
+@Document
+public class Person {
+  …
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example shows a domain class using both JPA and Spring Data MongoDB annotations. It defines two repositories, <code>JpaPersonRepository</code> and <code>MongoDBPersonRepository</code>. One is intended for JPA and the other for MongoDB usage. Spring Data is no longer able to tell the repositories apart which leads to undefined behavior.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#repositories.multiple-modules.types">Repository type details</a> and <a href="#repositories.multiple-modules.annotations">identifying domain class annotations</a> are used for strict repository configuration identify repository candidates for a particular Spring Data module. Using multiple persistence technology-specific annotations on the same domain type is possible to reuse domain types across multiple persistence technologies, but then Spring Data is no longer able to determine a unique module to bind the repository.</p>
+</div>
+<div class="paragraph">
+<p>The last way to distinguish repositories is scoping repository base packages. Base packages define the starting points for scanning for repository interface definitions which  implies to have repository definitions located in the appropriate packages. By default, annotation-driven configuration uses the package of the configuration class. The <a href="#repositories.create-instances.spring">base package in XML-based configuration</a> is mandatory.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 11. Annotation-driven configuration of base packages</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@EnableJpaRepositories(basePackages = "com.acme.repositories.jpa")
+@EnableMongoRepositories(basePackages = "com.acme.repositories.mongo")
+interface Configuration { }</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="repositories.query-methods.details"><a class="anchor" href="#repositories.query-methods.details"></a>4.4. Defining query methods</h3>
+<div class="paragraph">
+<p>The repository proxy has two ways to derive a store-specific query from the method name. It can derive the query from the method name directly, or by using a manually defined query. Available options depend on the actual store. However, there&#8217;s got to be a strategy that decides what actual query is created. Let&#8217;s have a look at the available options.</p>
+</div>
+<div class="sect3">
+<h4 id="repositories.query-methods.query-lookup-strategies"><a class="anchor" href="#repositories.query-methods.query-lookup-strategies"></a>4.4.1. Query lookup strategies</h4>
+<div class="paragraph">
+<p>The following strategies are available for the repository infrastructure to resolve the query. You can configure the strategy at the namespace through the <code>query-lookup-strategy</code> attribute in case of XML configuration or via the <code>queryLookupStrategy</code> attribute of the Enable${store}Repositories annotation in case of Java config. Some strategies may not be supported for particular datastores.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CREATE</code> attempts to construct a store-specific query from the query method name. The general approach is to remove a given set of well-known prefixes from the method name and parse the rest of the method. Read more about query construction in <a href="#repositories.query-methods.query-creation">Query creation</a>.</p>
+</li>
+<li>
+<p><code>USE_DECLARED_QUERY</code> tries to find a declared query and will throw an exception in case it can&#8217;t find one. The query can be defined by an annotation somewhere or declared by other means. Consult the documentation of the specific store to find available options for that store. If the repository infrastructure does not find a declared query for the method at bootstrap time, it fails.</p>
+</li>
+<li>
+<p><code>CREATE_IF_NOT_FOUND</code> (default) combines <code>CREATE</code> and <code>USE_DECLARED_QUERY</code>. It looks up a declared query first, and if no declared query is found, it creates a custom method name-based query. This is the default lookup strategy and thus will be used if you do not configure anything explicitly. It allows quick query definition by method names but also custom-tuning of these queries by introducing declared queries as needed.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="repositories.query-methods.query-creation"><a class="anchor" href="#repositories.query-methods.query-creation"></a>4.4.2. Query creation</h4>
+<div class="paragraph">
+<p>The query builder mechanism built into Spring Data repository infrastructure is useful for building constraining queries over entities of the repository. The mechanism strips the prefixes <code>find…By</code>, <code>read…By</code>, <code>query…By</code>, <code>count…By</code>, and <code>get…By</code> from the method and starts parsing the rest of it. The introducing clause can contain further expressions such as a <code>Distinct</code> to set a distinct flag on the query to be created. However, the first <code>By</code> acts as delimiter to indicate the start of the actual criteria. At a very basic level you can define conditions on entity properties and concatenate them with <code>And</code> and <code>Or</code>.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 12. Query creation from method names</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public interface PersonRepository extends Repository&lt;User, Long&gt; {
+
+  List&lt;Person&gt; findByEmailAddressAndLastname(EmailAddress emailAddress, String lastname);
+
+  // Enables the distinct flag for the query
+  List&lt;Person&gt; findDistinctPeopleByLastnameOrFirstname(String lastname, String firstname);
+  List&lt;Person&gt; findPeopleDistinctByLastnameOrFirstname(String lastname, String firstname);
+
+  // Enabling ignoring case for an individual property
+  List&lt;Person&gt; findByLastnameIgnoreCase(String lastname);
+  // Enabling ignoring case for all suitable properties
+  List&lt;Person&gt; findByLastnameAndFirstnameAllIgnoreCase(String lastname, String firstname);
+
+  // Enabling static ORDER BY for a query
+  List&lt;Person&gt; findByLastnameOrderByFirstnameAsc(String lastname);
+  List&lt;Person&gt; findByLastnameOrderByFirstnameDesc(String lastname);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The actual result of parsing the method depends on the persistence store for which you create the query. However, there are some general things to notice.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The expressions are usually property traversals combined with operators that can be concatenated. You can combine property expressions with <code>AND</code> and <code>OR</code>. You also get support for operators such as <code>Between</code>, <code>LessThan</code>, <code>GreaterThan</code>, <code>Like</code> for the property expressions. The supported operators can vary by datastore, so consult the appropriate part of your reference documentation.</p>
+</li>
+<li>
+<p>The method parser supports setting an <code>IgnoreCase</code> flag for individual properties (for example, <code>findByLastnameIgnoreCase(…)</code>) or for all properties of a type that support ignoring case (usually <code>String</code> instances, for example, <code>findByLastnameAndFirstnameAllIgnoreCase(…)</code>). Whether ignoring cases is supported may vary by store, so consult the relevant sections in the reference documentation for the store-specific query method.</p>
+</li>
+<li>
+<p>You can apply static ordering by appending an <code>OrderBy</code> clause to the query method that references a property and by providing a sorting direction (<code>Asc</code> or <code>Desc</code>). To create a query method that supports dynamic sorting, see <a href="#repositories.special-parameters">Special parameter handling</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="repositories.query-methods.query-property-expressions"><a class="anchor" href="#repositories.query-methods.query-property-expressions"></a>4.4.3. Property expressions</h4>
+<div class="paragraph">
+<p>Property expressions can refer only to a direct property of the managed entity, as shown in the preceding example. At query creation time you already make sure that the parsed property is a property of the managed domain class. However, you can also define constraints by traversing nested properties. Assume a <code>Person</code> has an <code>Address</code> with a <code>ZipCode</code>. In that case a method name of</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">List&lt;Person&gt; findByAddressZipCode(ZipCode zipCode);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>creates the property traversal <code>x.address.zipCode</code>. The resolution algorithm starts with interpreting the entire part (<code>AddressZipCode</code>) as the property and checks the domain class for a property with that name (uncapitalized). If the algorithm succeeds it uses that property. If not, the algorithm splits up the source at the camel case parts from the right side into a head and a tail and tries to find the corresponding property, in our example, <code>AddressZip</code> and <code>Code</code>. If the algorithm finds a property with that head it takes the tail and continue building the tree down from there, splitting the tail up in the way just described. If the first split does not match, the algorithm move the split point to the left (<code>Address</code>, <code>ZipCode</code>) and continues.</p>
+</div>
+<div class="paragraph">
+<p>Although this should work for most cases, it is possible for the algorithm to select the wrong property. Suppose the <code>Person</code> class has an <code>addressZip</code> property as well. The algorithm would match in the first split round already and essentially choose the wrong property and finally fail (as the type of <code>addressZip</code> probably has no <code>code</code> property).</p>
+</div>
+<div class="paragraph">
+<p>To resolve this ambiguity you can use <code>_</code> inside your method name to manually define traversal points. So our method name would end up like so:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">List&lt;Person&gt; findByAddress_ZipCode(ZipCode zipCode);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As we treat underscore as a reserved character we strongly advise to follow standard Java naming conventions (i.e. <strong>not</strong> using underscores in property names but camel case instead).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="repositories.special-parameters"><a class="anchor" href="#repositories.special-parameters"></a>4.4.4. Special parameter handling</h4>
+<div class="paragraph">
+<p>To handle parameters in your query you simply define method parameters as already seen in the examples above. Besides that the infrastructure will recognize certain specific types like <code>Pageable</code> and <code>Sort</code> to apply pagination and sorting to your queries dynamically.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 13. Using Pageable, Slice and Sort in query methods</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">Page&lt;User&gt; findByLastname(String lastname, Pageable pageable);
+
+Slice&lt;User&gt; findByLastname(String lastname, Pageable pageable);
+
+List&lt;User&gt; findByLastname(String lastname, Sort sort);
+
+List&lt;User&gt; findByLastname(String lastname, Pageable pageable);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The first method allows you to pass an <code>org.springframework.data.domain.Pageable</code> instance to the query method to dynamically add paging to your statically defined query. A <code>Page</code> knows about the total number of elements and pages available. It does so by the infrastructure triggering a count query to calculate the overall number. As this might be expensive depending on the store used, <code>Slice</code> can be used as return instead. A <code>Slice</code> only knows about whether there&#8217;s a next <code>Slice</code> available which might be just sufficient when walking thought a larger result set.</p>
+</div>
+<div class="paragraph">
+<p>Sorting options are handled through the <code>Pageable</code> instance too. If you only need sorting, simply add an <code>org.springframework.data.domain.Sort</code> parameter to your method. As you also can see, simply returning a <code>List</code> is possible as well. In this case the additional metadata required to build the actual <code>Page</code> instance will not be created (which in turn means that the additional count query that would have been necessary not being issued) but rather simply restricts the query to look up only the given range of entities.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+To find out how many pages you get for a query entirely you have to trigger an additional count query. By default this query will be derived from the query you actually trigger.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="repositories.limit-query-result"><a class="anchor" href="#repositories.limit-query-result"></a>4.4.5. Limiting query results</h4>
+<div class="paragraph">
+<p>The results of query methods can be limited via the keywords <code>first</code> or <code>top</code>, which can be used interchangeably. An optional numeric value can be appended to top/first to specify the maximum result size to be returned.
+If the number is left out, a result size of 1 is assumed.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 14. Limiting the result size of a query with <code>Top</code> and <code>First</code></div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">User findFirstByOrderByLastnameAsc();
+
+User findTopByOrderByAgeDesc();
+
+Page&lt;User&gt; queryFirst10ByLastname(String lastname, Pageable pageable);
+
+Slice&lt;User&gt; findTop3ByLastname(String lastname, Pageable pageable);
+
+List&lt;User&gt; findFirst10ByLastname(String lastname, Sort sort);
+
+List&lt;User&gt; findTop10ByLastname(String lastname, Pageable pageable);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The limiting expressions also support the <code>Distinct</code> keyword. Also, for the queries limiting the result set to one instance, wrapping the result into an <code>Optional</code> is supported.</p>
+</div>
+<div class="paragraph">
+<p>If pagination or slicing is applied to a limiting query pagination (and the calculation of the number of pages available) then it is applied within the limited result.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note that limiting the results in combination with dynamic sorting via a <code>Sort</code> parameter allows to express query methods for the 'K' smallest as well as for the 'K' biggest elements.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="repositories.query-streaming"><a class="anchor" href="#repositories.query-streaming"></a>4.4.6. Streaming query results</h4>
+<div class="paragraph">
+<p>The results of query methods can be processed incrementally by using a Java 8 <code>Stream&lt;T&gt;</code> as return type. Instead of simply wrapping the query results in a <code>Stream</code> data store specific methods are used to perform the streaming.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 15. Stream the result of a query with Java 8 <code>Stream&lt;T&gt;</code></div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Query("select u from User u")
+Stream&lt;User&gt; findAllByCustomQueryAndStream();
+
+Stream&lt;User&gt; readAllByFirstnameNotNull();
+
+@Query("select u from User u")
+Stream&lt;User&gt; streamAllPaged(Pageable pageable);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A <code>Stream</code> potentially wraps underlying data store specific resources and must therefore be closed after usage. You can either manually close the <code>Stream</code> using the <code>close()</code> method or by using a Java 7 try-with-resources block.
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock">
+<div class="title">Example 16. Working with a <code>Stream&lt;T&gt;</code> result in a try-with-resources block</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">try (Stream&lt;User&gt; stream = repository.findAllByCustomQueryAndStream()) {
+  stream.forEach(…);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Not all Spring Data modules currently support <code>Stream&lt;T&gt;</code> as a return type.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="repositories.query-async"><a class="anchor" href="#repositories.query-async"></a>4.4.7. Async query results</h4>
+<div class="paragraph">
+<p>Repository queries can be executed asynchronously using <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html#scheduling">Spring&#8217;s asynchronous method execution capability</a>. This means the method will return immediately upon invocation and the actual query execution will occur in a task that has been submitted to a Spring TaskExecutor.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Async
+Future&lt;User&gt; findByFirstname(String firstname);               <i class="conum" data-value="1"></i><b>(1)</b>
+
+@Async
+CompletableFuture&lt;User&gt; findOneByFirstname(String firstname); <i class="conum" data-value="2"></i><b>(2)</b>
+
+@Async
+ListenableFuture&lt;User&gt; findOneByLastname(String lastname);    <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use <code>java.util.concurrent.Future</code> as return type.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Use a Java 8 <code>java.util.concurrent.CompletableFuture</code> as return type.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Use a <code>org.springframework.util.concurrent.ListenableFuture</code> as return type.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="repositories.create-instances"><a class="anchor" href="#repositories.create-instances"></a>4.5. Creating repository instances</h3>
+<div class="paragraph">
+<p>In this section you create instances and bean definitions for the repository interfaces defined. One way to do so is using the Spring namespace that is shipped with each Spring Data module that supports the repository mechanism although we generally recommend to use the Java-Config style configuration.</p>
+</div>
+<div class="sect3">
+<h4 id="repositories.create-instances.spring"><a class="anchor" href="#repositories.create-instances.spring"></a>4.5.1. XML configuration</h4>
+<div class="paragraph">
+<p>Each Spring Data module includes a repositories element that allows you to simply define a base package that Spring scans for you.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 17. Enabling Spring Data repositories via XML</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.springframework.org/schema/data/jpa"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"&gt;
+
+  &lt;repositories base-package="com.acme.repositories" /&gt;
+
+&lt;/beans:beans&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>In the preceding example, Spring is instructed to scan <code>com.acme.repositories</code> and all its sub-packages for interfaces extending <code>Repository</code> or one of its sub-interfaces. For each interface found, the infrastructure registers the persistence technology-specific <code>FactoryBean</code> to create the appropriate proxies that handle invocations of the query methods. Each bean is registered under a bean name that is derived from the interface name, so an interface of <code>UserRepository</code> would be registered under <code>userRepository</code>. The <code>base-package</code> attribute allows wildcards, so that you can define a pattern of scanned packages.</p>
+</div>
+<div class="sect4">
+<h5 id="_using_filters"><a class="anchor" href="#_using_filters"></a>Using filters</h5>
+<div class="paragraph">
+<p>By default the infrastructure picks up every interface extending the persistence technology-specific <code>Repository</code> sub-interface located under the configured base package and creates a bean instance for it. However, you might want more fine-grained control over which interfaces bean instances get created for. To do this you use <code>&lt;include-filter /&gt;</code> and <code>&lt;exclude-filter /&gt;</code> elements inside <code>&lt;repositories /&gt;</code>. The semantics are exactly equivalent to the elements in Spring&#8217;s context namespace. For details, see <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html#beans-scanning-filters">Spring reference documentation</a> on these elements.</p>
+</div>
+<div class="paragraph">
+<p>For example, to exclude certain interfaces from instantiation as repository, you could use the following configuration:</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 18. Using exclude-filter element</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;repositories base-package="com.acme.repositories"&gt;
+  &lt;context:exclude-filter type="regex" expression=".*SomeRepository" /&gt;
+&lt;/repositories&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This example excludes all interfaces ending in <code>SomeRepository</code> from being instantiated.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="repositories.create-instances.java-config"><a class="anchor" href="#repositories.create-instances.java-config"></a>4.5.2. JavaConfig</h4>
+<div class="paragraph">
+<p>The repository infrastructure can also be triggered using a store-specific <code>@Enable${store}Repositories</code> annotation on a JavaConfig class. For an introduction into Java-based configuration of the Spring container, see the reference documentation.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
+</div>
+<div class="paragraph">
+<p>A sample configuration to enable Spring Data repositories looks something like this.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 19. Sample annotation based repository configuration</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Configuration
+@EnableJpaRepositories("com.acme.repositories")
+class ApplicationConfiguration {
+
+  @Bean
+  public EntityManagerFactory entityManagerFactory() {
+    // …
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The sample uses the JPA-specific annotation, which you would change according to the store module you actually use. The same applies to the definition of the <code>EntityManagerFactory</code> bean. Consult the sections covering the store-specific configuration.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="repositories.create-instances.standalone"><a class="anchor" href="#repositories.create-instances.standalone"></a>4.5.3. Standalone usage</h4>
+<div class="paragraph">
+<p>You can also use the repository infrastructure outside of a Spring container, e.g. in CDI environments. You still need some Spring libraries in your classpath, but generally you can set up repositories programmatically as well. The Spring Data modules that provide repository support ship a persistence technology-specific RepositoryFactory that you can use as follows.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 20. Standalone usage of repository factory</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">RepositoryFactorySupport factory = … // Instantiate factory here
+UserRepository repository = factory.getRepository(UserRepository.class);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="repositories.custom-implementations"><a class="anchor" href="#repositories.custom-implementations"></a>4.6. Custom implementations for Spring Data repositories</h3>
+<div class="paragraph">
+<p>Often it is necessary to provide a custom implementation for a few repository methods. Spring Data repositories easily allow you to provide custom repository code and integrate it with generic CRUD abstraction and query method functionality.</p>
+</div>
+<div class="sect3">
+<h4 id="repositories.single-repository-behaviour"><a class="anchor" href="#repositories.single-repository-behaviour"></a>4.6.1. Adding custom behavior to single repositories</h4>
+<div class="paragraph">
+<p>To enrich a repository with custom functionality you first define an interface and an implementation for the custom functionality. Use the repository interface you provided to extend the custom interface.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 21. Interface for custom repository functionality</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">interface UserRepositoryCustom {
+  public void someCustomMethod(User user);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="title">Example 22. Implementation of custom repository functionality</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">class UserRepositoryImpl implements UserRepositoryCustom {
+
+  public void someCustomMethod(User user) {
+    // Your custom implementation
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The most important bit for the class to be found is the <code>Impl</code> postfix of the name on it compared to the core repository interface (see below).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The implementation itself does not depend on Spring Data and can be a regular Spring bean. So you can use standard dependency injection behavior to inject references to other beans like a <code>JdbcTemplate</code>, take part in aspects, and so on.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 23. Changes to the your basic repository interface</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">interface UserRepository extends CrudRepository&lt;User, Long&gt;, UserRepositoryCustom {
+
+  // Declare query methods here
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Let your standard repository interface extend the custom one. Doing so combines the CRUD and custom functionality and makes it available to clients.</p>
+</div>
+<div class="sect4">
+<h5 id="_configuration"><a class="anchor" href="#_configuration"></a>Configuration</h5>
+<div class="paragraph">
+<p>If you use namespace configuration, the repository infrastructure tries to autodetect custom implementations by scanning for classes below the package we found a repository in. These classes need to follow the naming convention of appending the namespace element&#8217;s attribute <code>repository-impl-postfix</code> to the found repository interface name. This postfix defaults to <code>Impl</code>.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 24. Configuration example</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;repositories base-package="com.acme.repository" /&gt;
+
+&lt;repositories base-package="com.acme.repository" repository-impl-postfix="FooBar" /&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The first configuration example will try to look up a class <code>com.acme.repository.UserRepositoryImpl</code> to act as custom repository implementation, whereas the second example will try to lookup <code>com.acme.repository.UserRepositoryFooBar</code>.</p>
+</div>
+<div class="sect5">
+<h6 id="_manual_wiring"><a class="anchor" href="#_manual_wiring"></a>Manual wiring</h6>
+<div class="paragraph">
+<p>The approach just shown works well if your custom implementation uses annotation-based configuration and autowiring only, as it will be treated as any other Spring bean. If your custom implementation bean needs special wiring, you simply declare the bean and name it after the conventions just described. The infrastructure will then refer to the manually defined bean definition by name instead of creating one itself.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 25. Manual wiring of custom implementations</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;repositories base-package="com.acme.repository" /&gt;
+
+&lt;beans:bean id="userRepositoryImpl" class="…"&gt;
+  &lt;!-- further configuration --&gt;
+&lt;/beans:bean&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="repositories.custom-behaviour-for-all-repositories"><a class="anchor" href="#repositories.custom-behaviour-for-all-repositories"></a>4.6.2. Adding custom behavior to all repositories</h4>
+<div class="paragraph">
+<p>The preceding approach is not feasible when you want to add a single method to all your repository interfaces. To add custom behavior to all repositories, you first add an intermediate interface to declare the shared behavior.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 26. An interface declaring custom shared behavior</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@NoRepositoryBean
+public interface MyRepository&lt;T, ID extends Serializable&gt;
+  extends PagingAndSortingRepository&lt;T, ID&gt; {
+
+  void sharedCustomMethod(ID id);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Now your individual repository interfaces will extend this intermediate interface instead of the <code>Repository</code> interface to include the functionality declared. Next, create an implementation of the intermediate interface that extends the persistence technology-specific repository base class. This class will then act as a custom base class for the repository proxies.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 27. Custom repository base class</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public class MyRepositoryImpl&lt;T, ID extends Serializable&gt;
+  extends SimpleJpaRepository&lt;T, ID&gt; implements MyRepository&lt;T, ID&gt; {
+
+  private final EntityManager entityManager;
+
+  public MyRepositoryImpl(JpaEntityInformation entityInformation,
+                          EntityManager entityManager) {
+    super(entityInformation, entityManager);
+
+    // Keep the EntityManager around to used from the newly introduced methods.
+    this.entityManager = entityManager;
+  }
+
+  public void sharedCustomMethod(ID id) {
+    // implementation goes here
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The class needs to have a constructor of the super class which the store-specific repository factory implementation is using. In case the repository base class has multiple constructors, override the one taking an <code>EntityInformation</code> plus a store specific infrastructure object (e.g. an <code>EntityManager</code> or a template class).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The default behavior of the Spring <code>&lt;repositories /&gt;</code> namespace is to provide an implementation for all interfaces that fall under the <code>base-package</code>. This means that if left in its current state, an implementation instance of <code>MyRepository</code> will be created by Spring. This is of course not desired as it is just supposed to act as an intermediary between <code>Repository</code> and the actual repository interfaces you want to define for each entity. To exclude an interface that extends <code>Repository</code> from being instantiated as a repository instance, you can either annotate it with <code>@NoRepositoryBean</code> (as seen above) or move it outside of the configured <code>base-package</code>.</p>
+</div>
+<div class="paragraph">
+<p>The final step is to make the Spring Data infrastructure aware of the customized repository base class. In JavaConfig this is achieved by using the <code>repositoryBaseClass</code> attribute of the <code>@Enable…Repositories</code> annotation:</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 28. Configuring a custom repository base class using JavaConfig</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Configuration
+@EnableJpaRepositories(repositoryBaseClass = MyRepositoryImpl.class)
+class ApplicationConfiguration { … }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>A corresponding attribute is available in the XML namespace.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 29. Configuring a custom repository base class using XML</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;repositories base-package="com.acme.repository"
+     base-class="….MyRepositoryImpl" /&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="core.extensions"><a class="anchor" href="#core.extensions"></a>4.7. Spring Data extensions</h3>
+<div class="paragraph">
+<p>This section documents a set of Spring Data extensions that enable Spring Data usage in a variety of contexts. Currently most of the integration is targeted towards Spring MVC.</p>
+</div>
+<div class="sect3">
+<h4 id="core.extensions.querydsl"><a class="anchor" href="#core.extensions.querydsl"></a>4.7.1. Querydsl Extension</h4>
+<div class="paragraph">
+<p><a href="http://www.querydsl.com/">Querydsl</a> is a framework which enables the construction of statically typed SQL-like queries via its fluent API.</p>
+</div>
+<div class="paragraph">
+<p>Several Spring Data modules offer integration with Querydsl via <code>QueryDslPredicateExecutor</code>.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 30. QueryDslPredicateExecutor interface</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public interface QueryDslPredicateExecutor&lt;T&gt; {
+
+    T findOne(Predicate predicate);             <i class="conum" data-value="1"></i><b>(1)</b>
+
+    Iterable&lt;T&gt; findAll(Predicate predicate);   <i class="conum" data-value="2"></i><b>(2)</b>
+
+    long count(Predicate predicate);            <i class="conum" data-value="3"></i><b>(3)</b>
+
+    boolean exists(Predicate predicate);        <i class="conum" data-value="4"></i><b>(4)</b>
+
+    // … more functionality omitted.
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Finds and returns a single entity matching the <code>Predicate</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Finds and returns all entities matching the <code>Predicate</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Returns the number of entities matching the <code>Predicate</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Returns if an entity that matches the <code>Predicate</code> exists.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>To make use of Querydsl support simply extend <code>QueryDslPredicateExecutor</code> on your repository interface.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 31. Querydsl integration on repositories</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">interface UserRepository extends CrudRepository&lt;User, Long&gt;, QueryDslPredicateExecutor&lt;User&gt; {
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The above enables to write typesafe queries using Querydsl <code>Predicate</code> s.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">Predicate predicate = user.firstname.equalsIgnoreCase("dave")
+	.and(user.lastname.startsWithIgnoreCase("mathews"));
+
+userRepository.findAll(predicate);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="core.web"><a class="anchor" href="#core.web"></a>4.7.2. Web support</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This section contains the documentation for the Spring Data web support as it is implemented as of Spring Data Commons in the 1.6 range. As it the newly introduced support changes quite a lot of things we kept the documentation of the former behavior in <a href="#web.legacy">Legacy web support</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Spring Data modules ships with a variety of web support if the module supports the repository programming model. The web related stuff requires Spring MVC JARs on the classpath, some of them even provide integration with Spring HATEOAS <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup>. In general, the integration support is enabled by using the <code>@EnableSpringDataWebSupport</code> annotation in your JavaConfig configuration class.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 32. Enabling Spring Data web support</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Configuration
+@EnableWebMvc
+@EnableSpringDataWebSupport
+class WebConfiguration { }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>@EnableSpringDataWebSupport</code> annotation registers a few components we will discuss in a bit. It will also detect Spring HATEOAS on the classpath and register integration components for it as well if present.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, if you are using XML configuration, register either <code>SpringDataWebSupport</code> or <code>HateoasAwareSpringDataWebSupport</code> as Spring beans:</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 33. Enabling Spring Data web support in XML</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;bean class="org.springframework.data.web.config.SpringDataWebConfiguration" /&gt;
+
+&lt;!-- If you're using Spring HATEOAS as well register this one *instead* of the former --&gt;
+&lt;bean class="org.springframework.data.web.config.HateoasAwareSpringDataWebConfiguration" /&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="core.web.basic"><a class="anchor" href="#core.web.basic"></a>Basic web support</h5>
+<div class="paragraph">
+<p>The configuration setup shown above will register a few basic components:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>DomainClassConverter</code> to enable Spring MVC to resolve instances of repository managed domain classes from request parameters or path variables.</p>
+</li>
+<li>
+<p><code>HandlerMethodArgumentResolver</code> implementations to let Spring MVC resolve Pageable and Sort instances from request parameters.</p>
+</li>
+</ul>
+</div>
+<div class="sect5">
+<h6 id="core.web.basic.domain-class-converter"><a class="anchor" href="#core.web.basic.domain-class-converter"></a>DomainClassConverter</h6>
+<div class="paragraph">
+<p>The <code>DomainClassConverter</code> allows you to use domain types in your Spring MVC controller method signatures directly, so that you don&#8217;t have to manually lookup the instances via the repository:</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 34. A Spring MVC controller using domain types in method signatures</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Controller
+@RequestMapping("/users")
+public class UserController {
+
+  @RequestMapping("/{id}")
+  public String showUserForm(@PathVariable("id") User user, Model model) {
+
+    model.addAttribute("user", user);
+    return "userForm";
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see the method receives a User instance directly and no further lookup is necessary. The instance can be resolved by letting Spring MVC convert the path variable into the id type of the domain class first and eventually access the instance through calling <code>findOne(…)</code> on the repository instance registered for the domain type.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently the repository has to implement <code>CrudRepository</code> to be eligible to be discovered for conversion.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect5">
+<h6 id="core.web.basic.paging-and-sorting"><a class="anchor" href="#core.web.basic.paging-and-sorting"></a>HandlerMethodArgumentResolvers for Pageable and Sort</h6>
+<div class="paragraph">
+<p>The configuration snippet above also registers a <code>PageableHandlerMethodArgumentResolver</code> as well as an instance of <code>SortHandlerMethodArgumentResolver</code>. The registration enables <code>Pageable</code> and <code>Sort</code> being valid controller method arguments</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 35. Using Pageable as controller method argument</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Controller
+@RequestMapping("/users")
+public class UserController {
+
+  @Autowired UserRepository repository;
+
+  @RequestMapping
+  public String showUsers(Model model, Pageable pageable) {
+
+    model.addAttribute("users", repository.findAll(pageable));
+    return "users";
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This method signature will cause Spring MVC try to derive a Pageable instance from the request parameters using the following default configuration:</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<caption class="title">Table 1. Request parameters evaluated for Pageable instances</caption>
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Page you want to retrieve, 0 indexed and defaults to 0.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Size of the page you want to retrieve, defaults to 20.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sort</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Properties that should be sorted by in the format <code>property,property(,ASC|DESC)</code>. Default sort direction is ascending. Use multiple <code>sort</code> parameters if you want to switch directions, e.g. <code>?sort=firstname&amp;sort=lastname,asc</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>To customize this behavior extend either <code>SpringDataWebConfiguration</code> or the HATEOAS-enabled equivalent and override the <code>pageableResolver()</code> or <code>sortResolver()</code> methods and import your customized configuration file instead of using the <code>@Enable</code>-annotation.</p>
+</div>
+<div class="paragraph">
+<p>In case you need multiple <code>Pageable</code> or <code>Sort</code> instances to be resolved from the request (for multiple tables, for example) you can use Spring&#8217;s <code>@Qualifier</code> annotation to distinguish one from another. The request parameters then have to be prefixed with <code>${qualifier}_</code>. So for a method signature like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">public String showUsers(Model model,
+      @Qualifier("foo") Pageable first,
+      @Qualifier("bar") Pageable second) { … }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>you have to populate <code>foo_page</code> and <code>bar_page</code> etc.</p>
+</div>
+<div class="paragraph">
+<p>The default <code>Pageable</code> handed into the method is equivalent to a <code>new PageRequest(0, 20)</code> but can be customized using the <code>@PageableDefaults</code> annotation on the <code>Pageable</code> parameter.</p>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="core.web.pageables"><a class="anchor" href="#core.web.pageables"></a>Hypermedia support for Pageables</h5>
+<div class="paragraph">
+<p>Spring HATEOAS ships with a representation model class <code>PagedResources</code> that allows enriching the content of a <code>Page</code> instance with the necessary <code>Page</code> metadata as well as links to let the clients easily navigate the pages. The conversion of a Page to a <code>PagedResources</code> is done by an implementation of the Spring HATEOAS <code>ResourceAssembler</code> interface, the <code>PagedResourcesAssembler</code>.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 36. Using a PagedResourcesAssembler as controller method argument</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Controller
+class PersonController {
+
+  @Autowired PersonRepository repository;
+
+  @RequestMapping(value = "/persons", method = RequestMethod.GET)
+  HttpEntity&lt;PagedResources&lt;Person&gt;&gt; persons(Pageable pageable,
+    PagedResourcesAssembler assembler) {
+
+    Page&lt;Person&gt; persons = repository.findAll(pageable);
+    return new ResponseEntity&lt;&gt;(assembler.toResources(persons), HttpStatus.OK);
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Enabling the configuration as shown above allows the <code>PagedResourcesAssembler</code> to be used as controller method argument. Calling <code>toResources(…)</code> on it will cause the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The content of the <code>Page</code> will become the content of the <code>PagedResources</code> instance.</p>
+</li>
+<li>
+<p>The <code>PagedResources</code> will get a <code>PageMetadata</code> instance attached populated with information form the <code>Page</code> and the underlying <code>PageRequest</code>.</p>
+</li>
+<li>
+<p>The <code>PagedResources</code> gets <code>prev</code> and <code>next</code> links attached depending on the page&#8217;s state. The links will point to the URI the method invoked is mapped to. The pagination parameters added to the method will match the setup of the <code>PageableHandlerMethodArgumentResolver</code> to make sure the links can be resolved later on.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Assume we have 30 Person instances in the database. You can now trigger a request <code>GET <a href="http://localhost:8080/persons" class="bare">http://localhost:8080/persons</a></code> and you&#8217;ll see something similar to this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-javascript" data-lang="javascript">{ "links" : [ { "rel" : "next",
+                "href" : "http://localhost:8080/persons?page=1&amp;size=20 }
+  ],
+  "content" : [
+     … // 20 Person instances rendered here
+  ],
+  "pageMetadata" : {
+    "size" : 20,
+    "totalElements" : 30,
+    "totalPages" : 2,
+    "number" : 0
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You see that the assembler produced the correct URI and also picks up the default configuration present to resolve the parameters into a <code>Pageable</code> for an upcoming request. This means, if you change that configuration, the links will automatically adhere to the change. By default the assembler points to the controller method it was invoked in but that can be customized by handing in a custom <code>Link</code> to be used as base to build the pagination links to overloads of the <code>PagedResourcesAssembler.toResource(…)</code> method.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="core.web.type-safe"><a class="anchor" href="#core.web.type-safe"></a>Querydsl web support</h5>
+<div class="paragraph">
+<p>For those stores having <a href="http://www.querydsl.com/">QueryDSL</a> integration it is possible to derive queries from the attributes contained in a <code>Request</code> query string.</p>
+</div>
+<div class="paragraph">
+<p>This means that given the <code>User</code> object from previous samples a query string</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-text" data-lang="text">?firstname=Dave&amp;lastname=Matthews</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>can be resolved to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-text" data-lang="text">QUser.user.firstname.eq("Dave").and(QUser.user.lastname.eq("Matthews"))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>using the <code>QuerydslPredicateArgumentResolver</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The feature will be automatically enabled along <code>@EnableSpringDataWebSupport</code> when Querydsl is found on the classpath.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Adding a <code>@QuerydslPredicate</code> to the method signature will provide a ready to use <code>Predicate</code> which can be executed via the <code>QueryDslPredicateExecutor</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Type information is typically resolved from the methods return type. Since those information does not necessarily match the domain type it might be a good idea to use the <code>root</code> attribute of <code>QuerydslPredicate</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Controller
+class UserController {
+
+  @Autowired UserRepository repository;
+
+  @RequestMapping(value = "/", method = RequestMethod.GET)
+  String index(Model model, @QuerydslPredicate(root = User.class) Predicate predicate,    <i class="conum" data-value="1"></i><b>(1)</b>
+          Pageable pageable, @RequestParam MultiValueMap&lt;String, String&gt; parameters) {
+
+    model.addAttribute("users", repository.findAll(predicate, pageable));
+
+    return "index";
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Resolve query string arguments to matching <code>Predicate</code> for <code>User</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The default binding is as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Object</code> on simple properties as <code>eq</code>.</p>
+</li>
+<li>
+<p><code>Object</code> on collection like properties as <code>contains</code>.</p>
+</li>
+<li>
+<p><code>Collection</code> on simple properties as <code>in</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Those bindings can be customized via the <code>bindings</code> attribute of <code>@QuerydslPredicate</code> or by making use of Java 8 <code>default methods</code> adding the <code>QuerydslBinderCustomizer</code> to the repository interface.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">interface UserRepository extends CrudRepository&lt;User, String&gt;,
+                                 QueryDslPredicateExecutor&lt;User&gt;,                <i class="conum" data-value="1"></i><b>(1)</b>
+                                 QuerydslBinderCustomizer&lt;QUser&gt; {               <i class="conum" data-value="2"></i><b>(2)</b>
+
+  @Override
+  default public void customize(QuerydslBindings bindings, QUser user) {
+
+    bindings.bind(user.username).first((path, value) -&gt; path.contains(value))    <i class="conum" data-value="3"></i><b>(3)</b>
+    bindings.bind(String.class)
+      .first((StringPath path, String value) -&gt; path.containsIgnoreCase(value)); <i class="conum" data-value="4"></i><b>(4)</b>
+    bindings.excluding(user.password);                                           <i class="conum" data-value="5"></i><b>(5)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>QueryDslPredicateExecutor</code> provides access to specific finder methods for <code>Predicate</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>QuerydslBinderCustomizer</code> defined on the repository interface will be automatically picked up and shortcuts <code>@QuerydslPredicate(bindings=&#8230;&#8203;)</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Define the binding for the <code>username</code> property to be a simple contains binding.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Define the default binding for <code>String</code> properties to be a case insensitive contains match.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Exclude the <em>password</em> property from <code>Predicate</code> resolution.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="core.repository-populators"><a class="anchor" href="#core.repository-populators"></a>4.7.3. Repository populators</h4>
+<div class="paragraph">
+<p>If you work with the Spring JDBC module, you probably are familiar with the support to populate a <code>DataSource</code> using SQL scripts. A similar abstraction is available on the repositories level, although it does not use SQL as the data definition language because it must be store-independent. Thus the populators support XML (through Spring&#8217;s OXM abstraction) and JSON (through Jackson) to define data with which to populate the repositories.</p>
+</div>
+<div class="paragraph">
+<p>Assume you have a file <code>data.json</code> with the following content:</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 37. Data defined in JSON</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-javascript" data-lang="javascript">[ { "_class" : "com.acme.Person",
+ "firstname" : "Dave",
+  "lastname" : "Matthews" },
+  { "_class" : "com.acme.Person",
+ "firstname" : "Carter",
+  "lastname" : "Beauford" } ]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>You can easily populate your repositories by using the populator elements of the repository namespace provided in Spring Data Commons. To populate the preceding data to your PersonRepository , do the following:</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 38. Declaring a Jackson repository populator</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:repository="http://www.springframework.org/schema/data/repository"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/data/repository
+    http://www.springframework.org/schema/data/repository/spring-repository.xsd"&gt;
+
+  &lt;repository:jackson2-populator locations="classpath:data.json" /&gt;
+
+&lt;/beans&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This declaration causes the <code>data.json</code> file to
+be read and deserialized via a Jackson <code>ObjectMapper</code>.</p>
+</div>
+<div class="paragraph">
+<p>The type to which the JSON object will be unmarshalled to will be determined by inspecting the <code>_class</code> attribute of the JSON document. The infrastructure will eventually select the appropriate repository to handle the object just deserialized.</p>
+</div>
+<div class="paragraph">
+<p>To rather use XML to define the data the repositories shall be populated with, you can use the <code>unmarshaller-populator</code> element. You configure it to use one of the XML marshaller options Spring OXM provides you with. See the <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/oxm.html">Spring reference documentation</a> for details.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 39. Declaring an unmarshalling repository populator (using JAXB)</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:repository="http://www.springframework.org/schema/data/repository"
+  xmlns:oxm="http://www.springframework.org/schema/oxm"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/data/repository
+    http://www.springframework.org/schema/data/repository/spring-repository.xsd
+    http://www.springframework.org/schema/oxm
+    http://www.springframework.org/schema/oxm/spring-oxm.xsd"&gt;
+
+  &lt;repository:unmarshaller-populator locations="classpath:data.json"
+    unmarshaller-ref="unmarshaller" /&gt;
+
+  &lt;oxm:jaxb2-marshaller contextPath="com.acme" /&gt;
+
+&lt;/beans&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="web.legacy"><a class="anchor" href="#web.legacy"></a>4.7.4. Legacy web support</h4>
+<div class="sect4">
+<h5 id="web-domain-class-binding"><a class="anchor" href="#web-domain-class-binding"></a>Domain class web binding for Spring MVC</h5>
+<div class="paragraph">
+<p>Given you are developing a Spring MVC web application you typically have to resolve domain class ids from URLs. By default your task is to transform that request parameter or URL part into the domain class to hand it to layers below then or execute business logic on the entities directly. This would look something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Controller
+@RequestMapping("/users")
+public class UserController {
+
+  private final UserRepository userRepository;
+
+  @Autowired
+  public UserController(UserRepository userRepository) {
+    Assert.notNull(repository, "Repository must not be null!");
+    this.userRepository = userRepository;
+  }
+
+  @RequestMapping("/{id}")
+  public String showUserForm(@PathVariable("id") Long id, Model model) {
+
+    // Do null check for id
+    User user = userRepository.findOne(id);
+    // Do null check for user
+
+    model.addAttribute("user", user);
+    return "user";
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>First you declare a repository dependency for each controller to look up the entity managed by the controller or repository respectively. Looking up the entity is boilerplate as well, as it&#8217;s always a <code>findOne(…)</code> call. Fortunately Spring provides means to register custom components that allow conversion between a <code>String</code> value to an arbitrary type.</p>
+</div>
+<div class="sect5">
+<h6 id="web.legacy.property-editors"><a class="anchor" href="#web.legacy.property-editors"></a>PropertyEditors</h6>
+<div class="paragraph">
+<p>For Spring versions before 3.0 simple Java <code>PropertyEditors</code> had to be used. To integrate with that, Spring Data offers a <code>DomainClassPropertyEditorRegistrar</code>, which looks up all Spring Data repositories registered in the <code>ApplicationContext</code> and registers a custom <code>PropertyEditor</code> for the managed domain class.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;bean class="….web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"&gt;
+  &lt;property name="webBindingInitializer"&gt;
+    &lt;bean class="….web.bind.support.ConfigurableWebBindingInitializer"&gt;
+      &lt;property name="propertyEditorRegistrars"&gt;
+        &lt;bean class="org.springframework.data.repository.support.DomainClassPropertyEditorRegistrar" /&gt;
+      &lt;/property&gt;
+    &lt;/bean&gt;
+  &lt;/property&gt;
+&lt;/bean&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you have configured Spring MVC as in the preceding example, you can configure your controller as follows, which reduces a lot of the clutter and boilerplate.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Controller
+@RequestMapping("/users")
+public class UserController {
+
+  @RequestMapping("/{id}")
+  public String showUserForm(@PathVariable("id") User user, Model model) {
+
+    model.addAttribute("user", user);
+    return "userForm";
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h1 id="reference" class="sect0"><a class="anchor" href="#reference"></a>Reference Documentation</h1>
+
+<h1 id="appendix" class="sect0"><a class="anchor" href="#appendix"></a>Appendix</h1>
+<div class="sect1">
+<h2 id="repositories.namespace-reference"><a class="anchor" href="#repositories.namespace-reference"></a>Appendix A: Namespace reference</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="populator.namespace-dao-config"><a class="anchor" href="#populator.namespace-dao-config"></a>The &lt;repositories /&gt; element</h3>
+<div class="paragraph">
+<p>The <code>&lt;repositories /&gt;</code> element triggers the setup of the Spring Data repository infrastructure. The most important attribute is <code>base-package</code> which defines the package to scan for Spring Data repository interfaces.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. Attributes</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>base-package</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the package to be used to be scanned for repository interfaces extending *Repository (actual interface is determined by specific Spring Data module) in auto detection mode. All packages below the configured package will be scanned, too. Wildcards are allowed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>repository-impl-postfix</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the postfix to autodetect custom repository implementations. Classes whose names end with the configured postfix will be considered as candidates. Defaults to <code>Impl</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>query-lookup-strategy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Determines the strategy to be used to create finder queries. See <a href="#repositories.query-methods.query-lookup-strategies">Query lookup strategies</a> for details. Defaults to <code>create-if-not-found</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>named-queries-location</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the location to look for a Properties file containing externally defined queries.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>consider-nested-repositories</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Controls whether nested repository interface definitions should be considered. Defaults to <code>false</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="populator.namespace-reference"><a class="anchor" href="#populator.namespace-reference"></a>Appendix B: Populators namespace reference</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="namespace-dao-config"><a class="anchor" href="#namespace-dao-config"></a>The &lt;populator /&gt; element</h3>
+<div class="paragraph">
+<p>The <code>&lt;populator /&gt;</code> element allows to populate the a data store via the Spring Data repository infrastructure.<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</sup></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 3. Attributes</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>locations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where to find the files to read the objects from the repository shall be populated with.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="repository-query-keywords"><a class="anchor" href="#repository-query-keywords"></a>Appendix C: Repository query keywords</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_supported_query_keywords"><a class="anchor" href="#_supported_query_keywords"></a>Supported query keywords</h3>
+<div class="paragraph">
+<p>The following table lists the keywords generally supported by the Spring Data repository query derivation mechanism. However, consult the store-specific documentation for the exact list of supported keywords, because some listed here might not be supported in a particular store.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 4. Query keywords</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Logical keyword</th>
+<th class="tableblock halign-left valign-top">Keyword expressions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AND</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>And</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Or</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AFTER</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>After</code>, <code>IsAfter</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>BEFORE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Before</code>, <code>IsBefore</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CONTAINING</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Containing</code>, <code>IsContaining</code>, <code>Contains</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>BETWEEN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Between</code>, <code>IsBetween</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ENDING_WITH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>EndingWith</code>, <code>IsEndingWith</code>, <code>EndsWith</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>EXISTS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Exists</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FALSE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>False</code>, <code>IsFalse</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GREATER_THAN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GreaterThan</code>, <code>IsGreaterThan</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GREATER_THAN_EQUALS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GreaterThanEqual</code>, <code>IsGreaterThanEqual</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>In</code>, <code>IsIn</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Is</code>, <code>Equals</code>, (or no keyword)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IS_NOT_NULL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NotNull</code>, <code>IsNotNull</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>IS_NULL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code>, <code>IsNull</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LESS_THAN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LessThan</code>, <code>IsLessThan</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LESS_THAN_EQUAL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LessThanEqual</code>, <code>IsLessThanEqual</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LIKE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Like</code>, <code>IsLike</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NEAR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Near</code>, <code>IsNear</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Not</code>, <code>IsNot</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NOT_IN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NotIn</code>, <code>IsNotIn</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NOT_LIKE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NotLike</code>, <code>IsNotLike</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>REGEX</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Regex</code>, <code>MatchesRegex</code>, <code>Matches</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>STARTING_WITH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>StartingWith</code>, <code>IsStartingWith</code>, <code>StartsWith</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>TRUE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>True</code>, <code>IsTrue</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>WITHIN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Within</code>, <code>IsWithin</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="repository-query-return-types"><a class="anchor" href="#repository-query-return-types"></a>Appendix D: Repository query return types</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_supported_query_return_types"><a class="anchor" href="#_supported_query_return_types"></a>Supported query return types</h3>
+<div class="paragraph">
+<p>The following table lists the return types generally supported by Spring Data repositories. However, consult the store-specific documentation for the exact list of supported return types, because some listed here might not be supported in a particular store.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Geospatial types like (<code>GeoResult</code>, <code>GeoResults</code>, <code>GeoPage</code>) are only available for data stores that support geospatial queries.
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 5. Query return types</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Return type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>void</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Denotes no return value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primitives</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java primitives.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper types</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java wrapper types.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>T</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An unique entity. Expects the query method to return one result at most. In case no result is found <code>null</code> is returned. More than one result will trigger an <code>IncorrectResultSizeDataAccessException</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Iterator&lt;T&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An <code>Iterator</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Collection&lt;T&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>Collection</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>List&lt;T&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>List</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Optional&lt;T&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A Java 8 or Guava <code>Optional</code>. Expects the query method to return one result at most. In case no result is found <code>Optional.empty()</code>/<code>Optional.absent()</code> is returned. More than one result will trigger an <code>IncorrectResultSizeDataAccessException</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Stream&lt;T&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A Java 8 <code>Stream</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Future&lt;T&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>Future</code>. Expects method to be annotated with <code>@Async</code> and requires Spring&#8217;s asynchronous method execution capability enabled.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CompletableFuture&lt;T&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A Java 8 <code>CompletableFuture</code>. Expects method to be annotated with <code>@Async</code> and requires Spring&#8217;s asynchronous method execution capability enabled.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ListenableFuture</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>org.springframework.util.concurrent.ListenableFuture</code>. Expects method to be annotated with <code>@Async</code> and requires Spring&#8217;s asynchronous method execution capability enabled.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Slice</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A sized chunk of data with information whether there is more data available. Requires a <code>Pageable</code> method parameter.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Page&lt;T&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>Slice</code> with additional information, e.g. the total number of results. Requires a <code>Pageable</code> method parameter.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GeoResult&lt;T&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A result entry with additional information, e.g. distance to a reference location.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GeoResults&lt;T&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A list of <code>GeoResult&lt;T&gt;</code> with additional information, e.g. average distance to a reference location.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GeoPage&lt;T&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>Page</code> with <code>GeoResult&lt;T&gt;</code>, e.g. average distance to a reference location.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="faq"><a class="anchor" href="#faq"></a>Appendix E: Frequently asked questions</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="glossary"><a class="anchor" href="#glossary"></a>Appendix F: Glossary</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">AOP</dt>
+<dd>
+<p>Aspect oriented programming</p>
+</dd>
+<dt class="hdlist1">Commons DBCP</dt>
+<dd>
+<p>Commons DataBase Connection Pools - Library of the Apache foundation offering pooling implementations of the DataSource interface.</p>
+</dd>
+<dt class="hdlist1">CRUD</dt>
+<dd>
+<p>Create, Read, Update, Delete - Basic persistence operations</p>
+</dd>
+<dt class="hdlist1">DAO</dt>
+<dd>
+<p>Data Access Object - Pattern to separate persisting logic from the object to be persisted</p>
+</dd>
+<dt class="hdlist1">Dependency Injection</dt>
+<dd>
+<p>Pattern to hand a component&#8217;s dependency to the component from outside, freeing the component to lookup the dependant itself. For more information see <a href="http://en.wikipedia.org/wiki/Dependency_Injection"><a href="http://en.wikipedia.org/wiki/Dependency_Injection" class="bare">http://en.wikipedia.org/wiki/Dependency_Injection</a></a>.</p>
+</dd>
+<dt class="hdlist1">Spring</dt>
+<dd>
+<p>Java application framework - <a href="http://projects.spring.io/spring-framework"><a href="http://projects.spring.io/spring-framework" class="bare">http://projects.spring.io/spring-framework</a></a></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html#beans-java">JavaConfig in the Spring reference documentation</a>
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. Spring HATEOAS - <a href="https://github.com/SpringSource/spring-hateoas"><a href="https://github.com/SpringSource/spring-hateoas" class="bare">https://github.com/SpringSource/spring-hateoas</a></a>
+</div>
+<div class="footnote" id="_footnote_3">
+<a href="#_footnoteref_3">3</a>. see <a href="#repositories.create-instances.spring">XML configuration</a>
+</div>
+<div class="footnote" id="_footnote_4">
+<a href="#_footnoteref_4">4</a>. see <a href="#repositories.create-instances.spring">XML configuration</a>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.1.BUILD-SNAPSHOT<br>
+Last updated 2016-11-17 22:39:31 CST
+</div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
+<script>prettyPrint()</script>
+</body>
 </html>
