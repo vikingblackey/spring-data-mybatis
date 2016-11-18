@@ -16,7 +16,7 @@
 <div class="details">
 <span id="author" class="author">Jarvis Song</span><br>
 <span id="revnumber">version 1.0.1.BUILD-SNAPSHOT,</span>
-<span id="revdate">2016-11-17</span>
+<span id="revdate">2016-11-18</span>
 </div>
 </div>
 <div id="content">
@@ -50,8 +50,7 @@ Copies of this document may be made for your own use and for distribution to oth
 </li>
 <li><a href="#dependencies">3. Dependencies</a>
 <ul class="sectlevel2">
-<li><a href="#dependencies.spring-boot">3.1. Dependency management with Spring Boot</a></li>
-<li><a href="#dependencies.spring-framework">3.2. Spring Framework</a></li>
+<li><a href="#dependencies.spring-framework">3.1. Spring Framework</a></li>
 </ul>
 </li>
 <li><a href="#repositories">4. Working with Spring Data Repositories</a>
@@ -187,8 +186,8 @@ Copies of this document may be made for your own use and for distribution to oth
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;dependencies&gt;
   &lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.data&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-data-jpa&lt;/artifactId&gt;
+    &lt;groupId&gt;com.ifrabbit&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-data-mybatis&lt;/artifactId&gt;
     &lt;version&gt;{version}&lt;/version&gt;
   &lt;/dependency&gt;
 &lt;dependencies&gt;</code></pre>
@@ -197,15 +196,9 @@ Copies of this document may be made for your own use and for distribution to oth
 </div>
 </div>
 <div class="sect2">
-<h3 id="dependencies.spring-boot"><a class="anchor" href="#dependencies.spring-boot"></a>3.1. Dependency management with Spring Boot</h3>
+<h3 id="dependencies.spring-framework"><a class="anchor" href="#dependencies.spring-framework"></a>3.1. Spring Framework</h3>
 <div class="paragraph">
-<p>Spring Boot already selects a very recent version of Spring Data modules for you. In case you want to upgrade to a newer version nonetheless, simply configure the property <code>spring-data-releasetrain.version</code> to the <a href="#dependencies.train-names">train name and iteration</a> you&#8217;d like to use.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="dependencies.spring-framework"><a class="anchor" href="#dependencies.spring-framework"></a>3.2. Spring Framework</h3>
-<div class="paragraph">
-<p>The current version of Spring Data modules require Spring Framework in version 4.2.8.RELEASE or better. The modules might also work with an older bugfix version of that minor version. However, using the most recent version within that generation is highly recommended.</p>
+<p>The current version of Spring Data modules require Spring Framework in version 4.3.3.RELEASE or better. The modules might also work with an older bugfix version of that minor version. However, using the most recent version within that generation is highly recommended.</p>
 </div>
 </div>
 </div>
@@ -2253,7 +2246,7 @@ Geospatial types like (<code>GeoResult</code>, <code>GeoResults</code>, <code>Ge
 <div id="footer">
 <div id="footer-text">
 Version 1.0.1.BUILD-SNAPSHOT<br>
-Last updated 2016-11-17 22:39:31 CST
+Last updated 2016-11-17 22:51:40 CST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
