@@ -153,6 +153,10 @@ public class DialectFactoryBean implements FactoryBean<Dialect>, InitializingBea
 
             return new PostgreSQLDialect();
         }
+        
+        if ("SQLite".equals(databaseName)) {
+        	return new SQLiteDialect();
+        }
 
 
         return null;

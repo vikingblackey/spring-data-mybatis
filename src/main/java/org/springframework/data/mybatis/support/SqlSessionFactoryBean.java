@@ -48,6 +48,7 @@ public class SqlSessionFactoryBean extends org.mybatis.spring.SqlSessionFactoryB
         p.setProperty("MySQL", "mysql");
         p.setProperty("H2", "h2");
         p.setProperty("PostgreSQL", "postgres");
+        p.setProperty("SQLite", "sqlite");
         databaseIdProvider.setProperties(p);
         setDatabaseIdProvider(databaseIdProvider);
 
