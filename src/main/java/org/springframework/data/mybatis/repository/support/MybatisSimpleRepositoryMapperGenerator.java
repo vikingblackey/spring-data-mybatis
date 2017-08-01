@@ -292,7 +292,7 @@ public class MybatisSimpleRepositoryMapperGenerator {
         if (dialect.supportsDeleteAlias()) {
             builder.append(" ").append(quota(persistentEntity.getEntityName()));
         }
-        builder.append(" from ").append(generator.buildFrom(true));
+        builder.append(" from ").append(dialect.supportsDeleteAlias() ? generator.buildFrom(true) : persistentEntity.getTableName());
 
         builder.append("<if test=\"_condition != null\">");
         builder.append("<trim prefix=\" where \" prefixOverrides=\"and |or \">");
@@ -390,7 +390,7 @@ public class MybatisSimpleRepositoryMapperGenerator {
         if (dialect.supportsDeleteAlias()) {
             builder.append(" ").append(quota(persistentEntity.getEntityName()));
         }
-        builder.append(" from ").append(generator.buildFrom(true));
+        builder.append(" from ").append( dialect.supportsDeleteAlias() ? generator.buildFrom(true) : persistentEntity.getTableName());
 
         builder.append("<trim prefix=\" where \" prefixOverrides=\"and |or \">");
 
